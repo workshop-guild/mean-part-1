@@ -19,11 +19,11 @@ function init(){
 	router.get('/', function(req, res){
 		res.set('Content-Type', 'text/html');
 		res.sendfile('code/public/index.html');
-	})
+	});
 	
 	router.get('/404', function(req, res){
 		res.send(404, "Oops!");
-	})
+	});
 	
 	router.get('/start', function(req, res){
 		var state = game.start();
@@ -32,9 +32,9 @@ function init(){
 			display: state.display,
 			guesses: state.guesses,
 			lives: state.lives
-		}
+		};
 		res.send(result);
-	})
+	});
 	
 	router.post('/guess', function(req, res){
 		var state = game.getState(req.ip);
@@ -43,9 +43,9 @@ function init(){
 			display: state.display,
 			guesses: state.guesses,
 			lives: state.lives
-		}
+		};
 		res.send(result);
-	})
+	});
 	
 	router.all('*', function(req, res){
 		res.redirect('/404');
@@ -54,7 +54,7 @@ function init(){
 	app.use('/', router);
 
 	// start server
-	var server = http.createServer(app).listen(8080, function(){
+	var server = http.createServer(app).listen(8888, function(){
 		console.log(server.address());
 		console.log("Hangman server running...");
 	});

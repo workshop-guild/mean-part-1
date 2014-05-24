@@ -8,12 +8,12 @@ var game = function(){
 		init: function(){
 			request({
 				url: 'http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=8&maxLength=-1&limit=50&api_key=f0c77cb001282a51595e30318ac5f7aff8c03ad49b528bed4',				
-				proxy: "http://10.25.2.16:8080"
+				//proxy: "http://10.25.2.16:8080"
 			}, function(err, res, body){
 				if (!err && res.statusCode == 200) {
 					words = JSON.parse(body).map(function(pair){ return pair.word; });
 				}
-			})
+			});
 			return this;
 		},
 		// game actions
@@ -24,7 +24,7 @@ var game = function(){
 				display: word.replace(/[A-Z]/gi, "_"),
 				guesses: [],
 				lives: 5
-			}
+			};
 			console.log(obj);
 			return obj;
 		},
@@ -48,7 +48,8 @@ var game = function(){
 		},
 		// helper functions
 		getIndices_r: function(letter, word, offset){
-			var index = word.indexOf(letter), offset = offset || 0;
+			var index = word.indexOf(letter);
+			offset = offset || 0;
 			if (index < 0){
 				return [];
 			} else {
@@ -64,6 +65,6 @@ var game = function(){
 		}
 	};
 	return game.init();
-}
+};
 
 module.exports = game;
